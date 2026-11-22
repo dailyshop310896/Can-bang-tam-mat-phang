@@ -140,7 +140,8 @@ const config: ExpoConfig = {
       "expo-build-properties",
       {
         android: {
-          buildArchs: ["armeabi-v7a", "arm64-v8a"],
+          // Termux build: target 64-bit Android only to avoid failing armv7 linker.
+          buildArchs: ["arm64-v8a"],
           minSdkVersion: 24,
         },
       },
