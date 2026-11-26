@@ -25,8 +25,13 @@ let updated = original.replace(openingManifest, (tag) =>
 
 // Ensure the highest-priority app manifest removes permissions merged in by SDKs.
 const permissionTag = /<uses-permission(?:-sdk-23)?\b[^>]*\bandroid:name\s*=\s*["']android\.permission\.ACTIVITY_RECOGNITION["'][^>]*\/>/g;
-updated = updated.replace(permissionTag, "");
 const removal = '    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" tools:node="remove" />';
+if (updated.includes(removal)) {
+  if (updated !== original) fs.writeFileSync(file, updated, "utf8");
+  console.log("Android manifest: ACTIVITY_RECOGNITION already blocked.");
+  process.exit(0);
+}
+updated = updated.replace(permissionTag, "");
 updated = updated.replace(openingManifest, (tag) => tag + "\n" + removal);
 
 if (updated !== original) {
