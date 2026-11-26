@@ -44,6 +44,9 @@ else
   exit 1
 fi
 
+# Keep privacy permissions in sync even when Android sources are generated locally.
+node "$ROOT/scripts/sync-android-privacy-permissions.cjs"
+
 echo "=== Gradle ARM64 debug; log: $LOG ==="
 cd "$ANDROID"
 chmod +x gradlew
