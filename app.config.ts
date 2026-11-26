@@ -84,6 +84,8 @@ const config: ExpoConfig = {
     predictiveBackGestureEnabled: false,
     package: env.androidPackage,
     permissions: ["POST_NOTIFICATIONS"],
+    // The level meter uses Accelerometer only. Do not request physical activity data.
+    blockedPermissions: ["android.permission.ACTIVITY_RECOGNITION"],
     intentFilters: [
       {
         action: "VIEW",
